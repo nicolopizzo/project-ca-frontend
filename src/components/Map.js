@@ -7,6 +7,7 @@ import {
   Marker,
   Popup,
   useMapEvents,
+  Tooltip,
 } from "react-leaflet";
 import { DefaultIcon, GreenIcon, RestaurantIcon } from "../assets/Icons";
 import { CreateModal } from "./CreatePOIModal";
@@ -101,7 +102,7 @@ export const MyMap = () => {
 
   const handleSubmit = (poi) => {
     setPois([...pois, poi]);
-  }
+  };
 
   const DisplayMarker = () => {
     useMapEvents({
@@ -138,8 +139,19 @@ export const MyMap = () => {
       {marker === null ? null : (
         <Marker
           position={marker}
-          eventHandlers={{ click: () => showModal() }}
-        ></Marker>
+          eventHandlers={{
+            click: () => showModal(),
+          }}
+        >
+          <Tooltip
+            direction="bottom"
+            offset={[-14.5, 20]}
+            opacity={1}
+            // permanent
+          >
+            Clicca per aggiungere un POI
+          </Tooltip>
+        </Marker>
       )}
       <DisplayMarker />
     </MapContainer>

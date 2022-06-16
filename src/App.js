@@ -4,7 +4,7 @@ import { MyMap } from "./components/Map";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" id="main">
       <link
         rel="stylesheet"
         href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"

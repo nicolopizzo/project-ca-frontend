@@ -2,8 +2,6 @@ import { useState } from "react";
 import Modal from "react-modal";
 import "./Modal.css";
 
-// TODO: handleSubmit
-
 export const CreateModal = ({
   isOpen,
   onRequestClose,
@@ -11,6 +9,7 @@ export const CreateModal = ({
   latitude,
   longitude,
 }) => {
+  Modal.setAppElement("#main");
   const [id, setId] = useState("");
   const [type, setType] = useState("restaurant");
   const [rank, setRank] = useState(0);
@@ -20,23 +19,32 @@ export const CreateModal = ({
   };
 
   const handleCancel = () => {
-    setId('');
-    setType('restaurant');
+    setId("");
+    setType("restaurant");
     setRank(0);
     onRequestClose();
-  }
+  };
 
   const handleSubmit = () => {
-    const poi = {id, type, rank, position: [latitude, longitude]};
+    const poi = { id, type, rank, position: [latitude, longitude] };
     onSubmit(poi);
-    setId('');
-    setType('restaurant');
+    setId("");
+    setType("restaurant");
     setRank(0);
     onRequestClose();
-  }
+  };
 
   return (
-    <Modal isOpen={isOpen} onRequestClose={onRequestClose}>
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={onRequestClose}
+      // className={"Modal"}
+      style={{
+        content: {
+          height: "auto",
+        }
+      }}
+    >
       <form>
         <div style={{ marginTop: "10px", display: "flex", gap: "10px" }}>
           <div className="textField" style={{ width: "100%" }}>
