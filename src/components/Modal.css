@@ -29,8 +29,6 @@
     margin-top: 5px;
 }
 
-
-/* TODO: Add box-shadow to buttons */
 .saveButton {
     padding: 10px 20px;
     font-size: 18px;
@@ -40,6 +38,7 @@
     margin: 5px;
     border: 0;
     cursor: pointer;
+    box-shadow: 0px 3px 5px #232323;
 }
 
 .cancelButton {
@@ -50,6 +49,19 @@
     border-radius: 5px;
     border: 0;
     cursor: pointer;
+    box-shadow: 0px 3px 5px #232323;
 }
 
-/* TODO: add hover and active */
+.saveButton:hover {
+    background-color: #316a9d;
+}
+.cancelButton:hover {
+    background-color: #9e3030;
+}
+
+.saveButton:active {
+    background-color: #27537a;
+}
+.cancelButton:active {
+    background-color: #782525;
+}
