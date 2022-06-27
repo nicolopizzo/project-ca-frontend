@@ -5,11 +5,11 @@ const colors = ["#754E23", "#FFC180", "#C2894D", "#175C75", "#4EA3C2"];
 const colorMap = (count) => {
   if (count < 1) {
     return colors[0];
-  } else if (count < 2) {
+  } else if (count < 20) {
     return colors[1];
-  } else if (count < 4) {
+  } else if (count < 40) {
     return colors[2];
-  } else if (count < 6) {
+  } else if (count < 60) {
     return colors[3];
   }
 
