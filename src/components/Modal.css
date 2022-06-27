@@ -30,7 +30,7 @@
 }
 
 
-
+/* TODO: Add box-shadow to buttons */
 .saveButton {
     padding: 10px 20px;
     font-size: 18px;
@@ -52,4 +52,4 @@
     cursor: pointer;
 }
 
-/* TODO: button style */
+/* TODO: add hover and active */

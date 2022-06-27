@@ -1,6 +1,6 @@
 import "./App.css";
+import { Container } from "./components/Container";
 import { Header } from "./components/Header";
-import { MyMap } from "./components/Map";
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
         crossorigin=""
       />
       <Header />
-      <MyMap />
+      <Container />
     </div>
   );
 }

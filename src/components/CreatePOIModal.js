@@ -10,25 +10,21 @@ export const CreateModal = ({
   longitude,
 }) => {
   Modal.setAppElement("#main");
-  const [id, setId] = useState("");
+  const [name, setName] = useState("");
   const [type, setType] = useState("restaurant");
   const [rank, setRank] = useState(0);
 
-  const logAll = () => {
-    console.log(id, type, rank);
-  };
-
   const handleCancel = () => {
-    setId("");
+    setName("");
     setType("restaurant");
     setRank(0);
     onRequestClose();
   };
 
   const handleSubmit = () => {
-    const poi = { id, type, rank, position: [latitude, longitude] };
+    const poi = { name, type, rank, position: [latitude, longitude] };
     onSubmit(poi);
-    setId("");
+    setName("");
     setType("restaurant");
     setRank(0);
     onRequestClose();
@@ -52,9 +48,9 @@ export const CreateModal = ({
             <input
               type={"text"}
               onChange={(e) => {
-                setId(e.target.value);
+                setName(e.target.value);
               }}
-              value={id}
+              value={name}
             ></input>
           </div>
         </div>
@@ -70,7 +66,7 @@ export const CreateModal = ({
               }}
             >
               <option value="restaurant">Ristorante</option>
-              <option value="green">Belvedere</option>
+              <option value="greenarea">Belvedere</option>
             </select>
           </div>
 
