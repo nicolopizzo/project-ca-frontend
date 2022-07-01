@@ -4,36 +4,15 @@ import {
   MapContainer,
   TileLayer,
   Marker,
-  Popup,
   useMapEvents,
   Tooltip,
 } from "react-leaflet";
-import { DefaultIcon, GreenIcon, RestaurantIcon } from "../assets/Icons";
 import { areaToGeoJSON } from "../utils/geometry";
+import { ClusterMarker } from "./ClusterMarker";
 import { CreateModal } from "./CreatePOIModal";
+import { POIMarker } from "./POIMarker";
 
 const center = [44.4938203, 11.3426327];
-
-const toMarker = (poi) => {
-  let icon = DefaultIcon;
-  switch (poi.type) {
-    case "restaurant":
-      icon = RestaurantIcon;
-      break;
-    case "green":
-      icon = GreenIcon;
-      break;
-    default:
-      icon = DefaultIcon;
-  }
-  return (
-    <Marker key={poi.id} position={poi.position} icon={icon}>
-      <Popup>
-        {poi.name} <br /> Rank: {poi.rank}
-      </Popup>
-    </Marker>
-  );
-};
 
 const bounds = [
   [44.514929, 11.320226],
@@ -42,18 +21,9 @@ const bounds = [
   [44.510466, 11.366318],
 ];
 
-const windowHeight = window.innerHeight;
-const height = windowHeight - 78 + "px";
+const height = window.innerHeight + "px";
 
-const toForm = ({ id, name, rank, type, position }) => ({
-  id,
-  name,
-  rank,
-  type,
-  position: [position.coordinates[1], position.coordinates[0]],
-});
-
-export const MyMap = ({ areaPois, aeraUsers, cloakedArea }) => {
+export const MyMap = ({ areaPois, aeraUsers, cloakedArea: clusteredUsers }) => {
   const [pois, setPois] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [marker, setMarker] = useState(null);
@@ -62,7 +32,7 @@ export const MyMap = ({ areaPois, aeraUsers, cloakedArea }) => {
     const fetchPois = async () => {
       const pois = await (
         await axios.get("http://localhost:3001/poi")
-      ).data.map(toForm);
+      ).data;
       setPois(pois);
     };
 
@@ -79,7 +49,7 @@ export const MyMap = ({ areaPois, aeraUsers, cloakedArea }) => {
     const tmpPOI = { name, rank, type, position: { latitude, longitude } };
 
     const newPOI = (await axios.put("http://localhost:3001/poi", tmpPOI)).data;
-    setPois([...pois, toForm(newPOI)]);
+    setPois([...pois, newPOI]);
   };
 
   const DisplayMarker = () => {
@@ -96,22 +66,32 @@ export const MyMap = ({ areaPois, aeraUsers, cloakedArea }) => {
       style={{ height: height, zIndex: 0, flex: 3 }}
       center={center}
       zoom={14}
-      minZoom={13}
+      minZoom={10}
       doubleClickZoom={false}
       scrollWheelZoom={true}
-      bounds={bounds}
-      maxBounds={bounds}
+      // bounds={bounds}
+      // maxBounds={bounds}
+      // children={}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
 
+      {/* <ClusterMarker centroid={center} count={10} /> */}
+
       {/* Visualizzazione di tutti i POI */}
-      {pois && pois.map((position) => toMarker(position))}
+      {pois && pois.map((poi) => <POIMarker key={poi.id} poi={poi} />)}
 
       {/* Visualizzazione della heatmap basata sulla densità dei POI */}
       {areaPois && areaPois.map(areaToGeoJSON)}
+
+      {/* Visualizzazione della heatmap basata sui checkin ai POI degli utenti */}
+      {aeraUsers && aeraUsers.map(areaToGeoJSON)}
+
+      {/* Visualizzazione della posizione degli utenti clusterizzata */}
+      {/* <ClusterMarker centroid={center} count={10}/> */}
+      {clusteredUsers && clusteredUsers.map(c => <ClusterMarker centroid={c.centroid} count={c.count} />)}
 
       <CreateModal
         isOpen={openModal}

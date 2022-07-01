@@ -65,8 +65,11 @@ export const CreateModal = ({
                 setType(e.target.value);
               }}
             >
-              <option value="restaurant">Ristorante</option>
-              <option value="greenarea">Belvedere</option>
+              <option value="historical building">Edifico Storico</option>
+              <option value="park">Parco</option>
+              <option value="theater">Teatro</option>
+              <option value="department">Dipartimento</option>
+              <option value="Museum">Museo</option>
             </select>
           </div>
 
