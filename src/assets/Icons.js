@@ -1,13 +1,5 @@
 import L from "leaflet";
 
-const types = [
-  "historical building",
-  "park",
-  "theater",
-  "museum",
-  "department",
-];
-
 export const HistoricalBuildingIcon = L.icon({
     iconUrl: "https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png",
     shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",

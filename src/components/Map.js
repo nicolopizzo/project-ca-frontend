@@ -15,10 +15,13 @@ import { POIMarker } from "./POIMarker";
 const center = [44.4938203, 11.3426327];
 
 const bounds = [
-  [44.514929, 11.320226],
-  [44.481688, 11.320055],
-  [44.480281, 11.360481],
-  [44.510466, 11.366318],
+  [44.556717, 11.450640],
+  [44.457799, 11.432108],
+  [44.413673, 11.347684],
+  [44.420049, 11.266005],
+  [44.478380, 11.278360],
+  [44.506055, 11.218550],
+  [44.560631, 11.239827],
 ];
 
 const height = window.innerHeight + "px";
@@ -30,9 +33,7 @@ export const MyMap = ({ areaPois, aeraUsers, cloakedArea: clusteredUsers }) => {
 
   useEffect(() => {
     const fetchPois = async () => {
-      const pois = await (
-        await axios.get("http://localhost:3001/poi")
-      ).data;
+      const pois = await (await axios.get("http://localhost:3001/poi")).data;
       setPois(pois);
     };
 
@@ -66,11 +67,11 @@ export const MyMap = ({ areaPois, aeraUsers, cloakedArea: clusteredUsers }) => {
       style={{ height: height, zIndex: 0, flex: 3 }}
       center={center}
       zoom={14}
-      minZoom={10}
+      minZoom={12}
       doubleClickZoom={false}
       scrollWheelZoom={true}
-      // bounds={bounds}
-      // maxBounds={bounds}
+      bounds={bounds}
+      maxBounds={bounds}
       // children={}
     >
       <TileLayer
@@ -91,7 +92,10 @@ export const MyMap = ({ areaPois, aeraUsers, cloakedArea: clusteredUsers }) => {
 
       {/* Visualizzazione della posizione degli utenti clusterizzata */}
       {/* <ClusterMarker centroid={center} count={10}/> */}
-      {clusteredUsers && clusteredUsers.map(c => <ClusterMarker centroid={c.centroid} count={c.count} />)}
+      {clusteredUsers &&
+        clusteredUsers.map((c) => (
+          <ClusterMarker centroid={c.centroid} count={c.count} />
+        ))}
 
       <CreateModal
         isOpen={openModal}
