@@ -23,9 +23,10 @@ export const Container = () => {
     setActivityHm(activityHeatMap);
   };
 
-  const fetchCluster = async (interval) => {
-    const res = (await axios.get(`http://localhost:3001/activity/clustering?interval=${interval}`)).data;
-
+  const fetchCluster = async (startTime, endTime) => {
+    const res = (await axios.get(`http://localhost:3001/activity/clustering?start=${startTime}&end=${endTime}`)).data;
+    // console.log(startTime, endTime);
+    // console.log(res);
     setClusters(res);
   };
 
@@ -64,9 +65,9 @@ export const Container = () => {
     activityInterval.current = invokeEveryTwoMinutes(fetchUsersHm);
   };
 
-  const handleClustering = async (interval) => {
+  const handleClustering = async (startTime, endTime) => {
     setAllToNull();
-    fetchCluster(interval);
+    fetchCluster(startTime, endTime);
   };
 
   return (
