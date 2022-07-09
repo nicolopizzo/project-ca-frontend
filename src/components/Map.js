@@ -96,16 +96,28 @@ export const MyMap = ({ areaPois, aeraUsers, cloakedArea: clusteredUsers }) => {
 
       {/* TODO: Layers per POI e Utenti */}
       <LayersControl collapsed={false} position="topright">
-        <LayersControl.Overlay checked name="POI">
+        <LayersControl.Overlay checked name="POI abilitati">
           <LayerGroup>
             {/* Visualizzazione di tutti i POI */}
-            {pois && pois.map((poi) => <POIMarker key={poi.id} poi={poi} />)}
+            {pois && 
+              pois
+                .filter((p) => p.active)
+                .map((poi) => <POIMarker key={poi.id} poi={poi} />)}
+          </LayerGroup>
+        </LayersControl.Overlay>
+        <LayersControl.Overlay name="POI disabilitati">
+          <LayerGroup>
+            {/* Visualizzazione di tutti i POI */}
+            {pois &&
+              pois
+                .filter((p) => !p.active)
+                .map((poi) => <POIMarker disabled={true} key={poi.id} poi={poi} />)}
           </LayerGroup>
         </LayersControl.Overlay>
         <LayersControl.Overlay checked name="Utenti">
           <LayerGroup>
-          {/* Visualizzazione degli utenti attivi */}
-          {users && users.map((pos) => <UserMarker position={pos} />)}
+            {/* Visualizzazione degli utenti attivi */}
+            {users && users.map((pos) => <UserMarker position={pos} />)}
           </LayerGroup>
         </LayersControl.Overlay>
       </LayersControl>
