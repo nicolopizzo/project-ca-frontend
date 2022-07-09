@@ -24,7 +24,6 @@ export const Container = () => {
   };
 
   const fetchCluster = async (interval) => {
-    console.log(interval);
     const res = (await axios.get(`http://localhost:3001/activity/clustering?interval=${interval}`)).data;
 
     setClusters(res);

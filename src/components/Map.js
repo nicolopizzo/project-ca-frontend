@@ -1,3 +1,4 @@
+import { toContainElement } from "@testing-library/jest-dom/dist/matchers";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -77,6 +78,13 @@ export const MyMap = ({ areaPois, aeraUsers, cloakedArea: clusteredUsers }) => {
     });
   };
 
+  const setActive = async (poi) => {
+    const tmp = [...pois];
+    const index = tmp.findIndex((p) => p.id === poi.id);
+    tmp[index].active = !tmp[index].active;
+    setPois(tmp);
+  }
+
   return (
     <MapContainer
       style={{ height: height, zIndex: 0, flex: 3 }}
@@ -102,7 +110,7 @@ export const MyMap = ({ areaPois, aeraUsers, cloakedArea: clusteredUsers }) => {
             {pois && 
               pois
                 .filter((p) => p.active)
-                .map((poi) => <POIMarker key={poi.id} poi={poi} />)}
+                .map((poi) => <POIMarker key={poi.id} poi={poi} changeActive={setActive} />)}
           </LayerGroup>
         </LayersControl.Overlay>
         <LayersControl.Overlay name="POI disabilitati">
@@ -111,7 +119,7 @@ export const MyMap = ({ areaPois, aeraUsers, cloakedArea: clusteredUsers }) => {
             {pois &&
               pois
                 .filter((p) => !p.active)
-                .map((poi) => <POIMarker disabled={true} key={poi.id} poi={poi} />)}
+                .map((poi) => <POIMarker key={poi.id} poi={poi} changeActive={setActive} />)}
           </LayerGroup>
         </LayersControl.Overlay>
         <LayersControl.Overlay checked name="Utenti">

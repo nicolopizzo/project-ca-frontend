@@ -8,17 +8,10 @@ export const ClusterOptions = ({ handleChange }) => {
         backgroundColor: "white",
         padding: "20px 1% ",
       }}
-
-      onChange={e => handleChange(e.target.value)}
+      onChange={(e) => handleChange(e.target.value)}
     >
       {/* TODO: gestione onClick */}
-      <input
-        // onClick={(e) => {console.log(e); handleChange(e.target.value)}}
-        type="radio"
-        value="all"
-        name="clustering"
-        id="all"
-      />
+      <input type="radio" value="all" name="clustering" id="all" checked />
       <label htmlFor="all"> Tutti dati </label> <br />
       <input type="radio" value="day" id="today" name="clustering" />
       <label htmlFor="today"> Oggi </label> <br />
