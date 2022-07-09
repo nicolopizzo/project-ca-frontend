@@ -1,26 +1,29 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   MapContainer,
   TileLayer,
   Marker,
   useMapEvents,
   Tooltip,
+  LayersControl,
+  LayerGroup,
 } from "react-leaflet";
 import { areaToGeoJSON } from "../utils/geometry";
 import { ClusterMarker } from "./ClusterMarker";
 import { CreateModal } from "./CreatePOIModal";
 import { POIMarker } from "./POIMarker";
+import { UserMarker } from "./UserMarker";
 
 const center = [44.4938203, 11.3426327];
 
 const bounds = [
-  [44.556717, 11.450640],
+  [44.556717, 11.45064],
   [44.457799, 11.432108],
   [44.413673, 11.347684],
   [44.420049, 11.266005],
-  [44.478380, 11.278360],
-  [44.506055, 11.218550],
+  [44.47838, 11.27836],
+  [44.506055, 11.21855],
   [44.560631, 11.239827],
 ];
 
@@ -30,14 +33,26 @@ export const MyMap = ({ areaPois, aeraUsers, cloakedArea: clusteredUsers }) => {
   const [pois, setPois] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [marker, setMarker] = useState(null);
+  const [users, setUsers] = useState([center]);
+
+  const setUserInterval = useRef(null);
+
+  const fetchPois = async () => {
+    const pois = await (await axios.get("http://localhost:3001/poi")).data;
+    setPois(pois);
+  };
+
+  const fetchUsers = async () => {
+    const users = (await axios.get("http://localhost:3001/activity/user")).data;
+    setUsers(users);
+  };
 
   useEffect(() => {
-    const fetchPois = async () => {
-      const pois = await (await axios.get("http://localhost:3001/poi")).data;
-      setPois(pois);
-    };
-
     fetchPois();
+    fetchUsers();
+
+    // Aggiorno le informazioni relative agli utenti ogni due minuti
+    setInterval(fetchUsers, 120000);
   }, []);
 
   const showModal = () => {
@@ -79,10 +94,21 @@ export const MyMap = ({ areaPois, aeraUsers, cloakedArea: clusteredUsers }) => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
 
-      {/* <ClusterMarker centroid={center} count={10} /> */}
-
-      {/* Visualizzazione di tutti i POI */}
-      {pois && pois.map((poi) => <POIMarker key={poi.id} poi={poi} />)}
+      {/* TODO: Layers per POI e Utenti */}
+      <LayersControl collapsed={false} position="topright">
+        <LayersControl.Overlay checked name="POI">
+          <LayerGroup>
+            {/* Visualizzazione di tutti i POI */}
+            {pois && pois.map((poi) => <POIMarker key={poi.id} poi={poi} />)}
+          </LayerGroup>
+        </LayersControl.Overlay>
+        <LayersControl.Overlay checked name="Utenti">
+          <LayerGroup>
+          {/* Visualizzazione degli utenti attivi */}
+          {users && users.map((pos) => <UserMarker position={pos} />)}
+          </LayerGroup>
+        </LayersControl.Overlay>
+      </LayersControl>
 
       {/* Visualizzazione della heatmap basata sulla densità dei POI */}
       {areaPois && areaPois.map(areaToGeoJSON)}

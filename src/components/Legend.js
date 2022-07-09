@@ -30,7 +30,7 @@ export const POILegend = () => {
         boxShadow: "0px 0px 10px #000000",
       }}
     >
-      <div style={{ fontWeight: "bold", fontSize: "18px" }}>Legenda POI</div>
+      <div style={{ fontWeight: "bold", fontSize: "18px" }}>Tipologie di POI</div>
       <LegendElement color="#237CC9" text="Edificio Storico" />
       <LegendElement color="#22AC1F" text="Parco" />
       <LegendElement color="#CB2C3F" text="Teatro" />
@@ -55,7 +55,6 @@ const LegendElement = ({ color, text }) => {
           backgroundColor: color,
           width: "20px",
           height: "20px",
-          // borderRadius: "50%",
           marginRight: "10px",
         }}
       />

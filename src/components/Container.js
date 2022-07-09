@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { MyMap } from "./Map";
 import { SideBar } from "./SideBar";
 
@@ -9,11 +9,40 @@ export const Container = () => {
   const [clusters, setClusters] = useState([]);
   const [showLegend, setShowLegend] = useState(false);
 
+  const fetchPOI = async () => {
+    const poisHeatMap = (await axios.get("http://localhost:3001/poi/zone"))
+      .data;
+    setPoisHm(poisHeatMap);
+  };
+
+  const fetchUsersHm = async () => {
+    const activityHeatMap = (
+      await axios.get("http://localhost:3001/activity/zone")
+    ).data;
+
+    setActivityHm(activityHeatMap);
+  };
+
+  const fetchCluster = async (interval) => {
+    console.log(interval);
+    const res = (await axios.get(`http://localhost:3001/activity/clustering?interval=${interval}`)).data;
+
+    setClusters(res);
+  };
+
+  const invokeEveryTwoMinutes = (f) => setInterval(f, 120000);
+
+  const poisInterval = useRef(null);
+  const activityInterval = useRef(null);
+
   const setAllToNull = () => {
     setPoisHm([]);
     setActivityHm([]);
-    setClusters([])
+    setClusters([]);
     setShowLegend(false);
+    clearInterval(poisInterval.current);
+    clearInterval(activityInterval.current);
+    clearInterval(clusters.current);
   };
 
   const handleDefault = () => {
@@ -24,29 +53,21 @@ export const Container = () => {
   const handlePOIHm = async () => {
     setAllToNull();
     setShowLegend(true);
-    const poisHeatMap = (await axios.get("http://localhost:3001/poi/zone"))
-      .data;
-
-    setPoisHm(poisHeatMap);
+    fetchPOI();
+    poisInterval.current = invokeEveryTwoMinutes(fetchPOI);
+    // poisInterval();
   };
 
   const handleActivityHM = async () => {
     setAllToNull();
     setShowLegend(true);
-    const activityHeatMap = (
-      await axios.get("http://localhost:3001/activity/zone")
-    ).data;
-
-    setActivityHm(activityHeatMap);
+    fetchUsersHm();
+    activityInterval.current = invokeEveryTwoMinutes(fetchUsersHm);
   };
 
-  const handleClustering = async () => {
+  const handleClustering = async (interval) => {
     setAllToNull();
-
-    const res = (await axios.get("http://localhost:3001/activity/users"))
-      .data;
-
-    setClusters(res);
+    fetchCluster(interval);
   };
 
   return (
@@ -61,7 +82,11 @@ export const Container = () => {
         />
       </div>
       <div style={{ flex: 4 }}>
-        <MyMap areaPois={poisHm} aeraUsers={activityHm} cloakedArea={clusters} />
+        <MyMap
+          areaPois={poisHm}
+          aeraUsers={activityHm}
+          cloakedArea={clusters}
+        />
       </div>
     </div>
   );
