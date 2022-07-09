@@ -27,6 +27,7 @@ export const ClusteringModal = ({ isOpen, onRequestClose, onSubmit }) => {
                 onChange={(e) => setStartTime(e)}
                 value={startTime}
                 maxDate={new Date()}
+                minDate={new Date(2022, 0, 1)}
               />
             </div>
           )}
@@ -35,9 +36,10 @@ export const ClusteringModal = ({ isOpen, onRequestClose, onSubmit }) => {
             <div className="textField" style={{ flex: 3 }}>
               <label>Fine</label>
               <DateTimePicker
-                maxDate={new Date()}
                 onChange={(e) => setEndTime(e)}
                 value={endTime}
+                maxDate={new Date()}
+                minDate={new Date(2022, 0, 1)}
               />
             </div>
           )}
@@ -55,6 +57,13 @@ export const ClusteringModal = ({ isOpen, onRequestClose, onSubmit }) => {
               onColor={"#387bb5"}
               offColor={"#b53838"}
               onChange={() => {
+                if (!all) {
+                  // set to all data ever
+                  setStartTime(new Date(2022, 0, 1));
+                } else {
+                  setStartTime(new Date(new Date().setHours(0, 0, 0)));
+                }
+                setEndTime(new Date());
                 setAll(!all);
               }}
             />
