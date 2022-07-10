@@ -165,10 +165,10 @@ export const MyMap = ({ areaPois, aeraUsers, cloakedArea: clusteredUsers }) => {
       </LayersControl>
 
       {/* Visualizzazione della heatmap basata sulla densità dei POI */}
-      {areaPois && areaPois.map(areaToGeoJSON)}
+      {areaPois && areaPois.map( p => areaToGeoJSON(p, [0.15, 0.3, 0.45]))}
 
       {/* Visualizzazione della heatmap basata sui checkin ai POI degli utenti */}
-      {aeraUsers && aeraUsers.map(areaToGeoJSON)}
+      {aeraUsers && aeraUsers.map(u => areaToGeoJSON(u, [10, 20, 30]))}
 
       {/* Visualizzazione della posizione degli utenti clusterizzata */}
       {/* <ClusterMarker centroid={center} count={10}/> */}

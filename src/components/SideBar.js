@@ -12,14 +12,14 @@ export const SideBar = ({
   handleClustering,
   showLegend = false,
 }) => {
-  const [time, setTime] = useState("all");
+  const [ranges, setRanges] = useState([4, 9, 14, 15]);
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div style={{ backgroundColor: "#30475E", height: "100%" }}>
       <Header />
       <Button text="DEFAULT" onClick={handleDefault} />
-      <Button text="DENSITÀ POI" onClick={handlePOI} />
-      <Button text="DENSITÀ UTENTI" onClick={handleActivity} />
+      <Button text="DENSITÀ POI" onClick={(e) => {handlePOI(); setRanges([0.15, 0.3, 0.45])}} />
+      <Button text="DENSITÀ UTENTI" onClick={(e) => {handleActivity(); setRanges([10, 20, 30, 40])}} />
       <Button
         text="CLUSTERING SPAZIALE"
         onClick={(e) => {
@@ -36,7 +36,7 @@ export const SideBar = ({
           handleClustering(startTime, endTime);
         }}
       />
-      {showLegend && <Legend />}
+      {showLegend && <Legend ranges={ranges} />}
     </div>
   );
 };

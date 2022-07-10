@@ -1,4 +1,4 @@
-export const Legend = () => {
+export const Legend = ({ranges}) => {
   return (
     <div
       style={{
@@ -10,11 +10,11 @@ export const Legend = () => {
       }}
     >
       <div style={{ fontWeight: "bold", fontSize: "18px" }}>Legenda</div>
-      <LegendElement color="#754E23" text="0" />
-      <LegendElement color="#FFC180" text="1 - 4" />
-      <LegendElement color="#C2894D" text="5 - 9" />
-      <LegendElement color="#175C75" text="10 - 14" />
-      <LegendElement color="#4EA3C2" text="15+" />
+      <LegendElement color="#754E23" text={0} /> 
+      <LegendElement color="#FFC180" text={"<" + ranges[0]} /> 
+      <LegendElement color="#C2894D" text={"<" + ranges[1]} /> 
+      <LegendElement color="#175C75" text={"<" + ranges[2]} /> 
+      <LegendElement color="#4EA3C2" text={ranges[2] + "+"} /> 
     </div>
   );
 };
