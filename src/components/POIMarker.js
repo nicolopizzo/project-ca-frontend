@@ -45,11 +45,12 @@ export const POIMarker = ({ poi, changeActive }) => {
         <button
           // className="btn"
           style={{
-            backgroundColor: "#F05454",
+            backgroundColor: "#30475e",
             border: "none",
             borderRadius: "5px",
             padding: "5px 10px",
             cursor: "pointer",
+            color: "white",
           }}
           onClick={handleEdit}
         >

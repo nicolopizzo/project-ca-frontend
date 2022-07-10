@@ -19,7 +19,7 @@ export const SideBar = ({
       <Header />
       <Button text="DEFAULT" onClick={handleDefault} />
       <Button text="DENSITÀ POI" onClick={(e) => {handlePOI(); setRanges([0.15, 0.3, 0.45])}} />
-      <Button text="DENSITÀ UTENTI" onClick={(e) => {handleActivity(); setRanges([10, 20, 30, 40])}} />
+      <Button text="CHECK-IN UTENTI" onClick={(e) => {handleActivity(); setRanges([10, 20, 30, 40])}} />
       <Button
         text="CLUSTERING SPAZIALE"
         onClick={(e) => {

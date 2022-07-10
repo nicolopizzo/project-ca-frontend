@@ -15,10 +15,35 @@ export const ClusteringModal = ({ isOpen, onRequestClose, onSubmit }) => {
 
   // set default end time to the end of the day
   const [endTime, setEndTime] = useState(new Date());
-  const [all, setAll] = useState(false);
+  const [all, setAll] = useState(true);
   return (
     <Modal isOpen={isOpen}>
       <form>
+        <div style={{ marginTop: "10px", display: "flex", gap: "10px" }}>
+          <div className="textField" style={{ flex: 1 }}>
+            <label>Usa tutti i dati</label>
+            <Switch
+              checked={all}
+              uncheckedIcon
+              checkedIcon
+              height={16}
+              handleDiameter={14}
+              onColor={"#387bb5"}
+              offColor={"#b53838"}
+              onChange={() => {
+                if (!all) {
+                  // set to all data ever
+                  setStartTime(new Date(2022, 0, 1));
+                } else {
+                  setStartTime(new Date(new Date().setHours(0, 0, 0)));
+                }
+                setEndTime(new Date());
+                setAll(!all);
+              }}
+            />
+          </div>
+        </div>
+
         <div style={{ marginTop: "10px", display: "flex", gap: "10px" }}>
           {!all && (
             <div className="textField" style={{ flex: 3 }}>
@@ -45,44 +70,19 @@ export const ClusteringModal = ({ isOpen, onRequestClose, onSubmit }) => {
           )}
         </div>
 
-        <div style={{ marginTop: "10px", display: "flex", gap: "10px" }}>
-          <div className="textField" style={{ flex: 1 }}>
-            <label>Usa tutti i dati</label>
-            <Switch
-              checked={all}
-              uncheckedIcon
-              checkedIcon
-              height={16}
-              handleDiameter={14}
-              onColor={"#387bb5"}
-              offColor={"#b53838"}
-              onChange={() => {
-                if (!all) {
-                  // set to all data ever
-                  setStartTime(new Date(2022, 0, 1));
-                } else {
-                  setStartTime(new Date(new Date().setHours(0, 0, 0)));
-                }
-                setEndTime(new Date());
-                setAll(!all);
+        <div style={{ display: "flex", justifyContent: "end" }}>
+          <div className="buttonContainer">
+            <button className="cancelButton" onClick={onRequestClose}>
+              Annulla
+            </button>
+            <button
+              className="saveButton"
+              onClick={() => {
+                onSubmit(startTime, endTime);
               }}
-            />
-          </div>
-
-          <div style={{ display: "flex", justifyContent: "end" }}>
-            <div className="buttonContainer">
-              <button className="cancelButton" onClick={onRequestClose}>
-                Annulla
-              </button>
-              <button
-                className="saveButton"
-                onClick={() => {
-                  onSubmit(startTime, endTime);
-                }}
-              >
-                Salva
-              </button>
-            </div>
+            >
+              Salva
+            </button>
           </div>
         </div>
       </form>
