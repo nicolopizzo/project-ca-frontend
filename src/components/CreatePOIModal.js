@@ -11,12 +11,12 @@ export const CreateModal = ({
 }) => {
   Modal.setAppElement("#main");
   const [name, setName] = useState("");
-  const [type, setType] = useState("restaurant");
+  const [type, setType] = useState("historical building");
   const [rank, setRank] = useState(0);
 
   const handleCancel = () => {
     setName("");
-    setType("restaurant");
+    setType("historical building");
     setRank(0);
     onRequestClose();
   };
@@ -25,7 +25,7 @@ export const CreateModal = ({
     const poi = { name, type, rank, position: [latitude, longitude] };
     onSubmit(poi);
     setName("");
-    setType("restaurant");
+    setType("historical building");
     setRank(0);
     onRequestClose();
   };
@@ -34,7 +34,6 @@ export const CreateModal = ({
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
-      // className={"Modal"}
       style={{
         content: {
           height: "auto",
@@ -69,7 +68,7 @@ export const CreateModal = ({
               <option value="park">Parco</option>
               <option value="theater">Teatro</option>
               <option value="department">Dipartimento</option>
-              <option value="Museum">Museo</option>
+              <option value="museum">Museo</option>
             </select>
           </div>
 

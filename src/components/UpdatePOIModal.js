@@ -7,7 +7,6 @@ import { toFormattedType } from "../utils/poi";
 export const UpdateModal = ({ isOpen, onRequestClose, onSubmit, poi }) => {
   Modal.setAppElement("#main");
   const [name, setName] = useState(poi.name);
-  // const [type, setType] = useState(poi.type);
   const [rank, setRank] = useState(poi.rank);
   const [active, setActive] = useState(poi.active);
 
