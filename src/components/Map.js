@@ -111,25 +111,24 @@ export const MyMap = ({ areaPois, aeraUsers, cloakedArea: clusteredUsers }) => {
           />
         </LayersControl.BaseLayer>
 
-        <LayersControl.BaseLayer name="MapBox Basic">
+        <LayersControl.BaseLayer name="MapTiler Basic">
           <TileLayer
-            url="https://api.mapbox.com/styles/v1/nicolopizzo/cl5elo75o002514mvxjlg4gcs/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoibmljb2xvcGl6em8iLCJhIjoiY2w1ZWp4dWhnMHhqZzNlbnpvd2ZscXA0YSJ9.ajhpIwLw2FwhidIhTuL9Fg"
-            attribution='Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy; <a href="https://www.mapbox.com/">Mapbox</a>'
-          />
-        </LayersControl.BaseLayer>
-        mapbox://styles/nicolopizzo/
-
-        <LayersControl.BaseLayer name="MapBox Streets">
-          <TileLayer
-            url="https://api.mapbox.com/styles/v1/nicolopizzo/cl5ejzk7i002414mv8wqojqhl/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoibmljb2xvcGl6em8iLCJhIjoiY2w1ZWp4dWhnMHhqZzNlbnpvd2ZscXA0YSJ9.ajhpIwLw2FwhidIhTuL9Fg"
-            attribution='Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy; <a href="https://www.mapbox.com/">Mapbox</a>'
-          />
+            url="https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}@2x.png?key=MgmUzN7rTqwMXt52dnge"
+            attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
+            />
         </LayersControl.BaseLayer>
 
-        <LayersControl.BaseLayer name="MapBox Satellite">
+        <LayersControl.BaseLayer name="MapTiler Streets">
           <TileLayer
-            url="https://api.mapbox.com/styles/v1/nicolopizzo/cl5ekayjf005i14rz1sobkuo3/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoibmljb2xvcGl6em8iLCJhIjoiY2w1ZWp4dWhnMHhqZzNlbnpvd2ZscXA0YSJ9.ajhpIwLw2FwhidIhTuL9Fg"
-            attribution='Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy; <a href="https://www.mapbox.com/">Mapbox</a>'
+            url="https://api.maptiler.com/maps/streets/256/{z}/{x}/{y}.png?key=MgmUzN7rTqwMXt52dnge"
+            attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
+            />
+        </LayersControl.BaseLayer>
+
+        <LayersControl.BaseLayer name="MapTiler Satellite">
+          <TileLayer
+            url="https://api.maptiler.com/maps/hybrid/256/{z}/{x}/{y}@2x.jpg?key=MgmUzN7rTqwMXt52dnge"
+            attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
           />
         </LayersControl.BaseLayer>
 
