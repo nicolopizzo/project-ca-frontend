@@ -31,12 +31,12 @@ const bounds = [
 
 const height = window.innerHeight + "px";
 
-export const MyMap = ({ areaPois, aeraUsers, cloakedArea: clusteredUsers }) => {
+export const MyMap = ({ areaPois, aeraUsers, clusteredUsers }) => {
   const [pois, setPois] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [marker, setMarker] = useState(null);
   const [users, setUsers] = useState([]);
-  const mapRef = useRef(null);
+  // const mapRef = useRef(null);
 
   const setUserInterval = useRef(null);
 
@@ -53,7 +53,6 @@ export const MyMap = ({ areaPois, aeraUsers, cloakedArea: clusteredUsers }) => {
   useEffect(() => {
     fetchPois();
     fetchUsers();
-    console.log(mapRef.current);
 
     // Aggiorno le informazioni relative agli utenti ogni due minuti
     setInterval(fetchUsers, 120000);
@@ -90,7 +89,6 @@ export const MyMap = ({ areaPois, aeraUsers, cloakedArea: clusteredUsers }) => {
 
   return (
     <MapContainer
-      ref={(m) => (mapRef.current = m)}
       style={{ height: height, zIndex: 0, flex: 3 }}
       center={center}
       zoom={14}

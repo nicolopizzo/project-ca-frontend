@@ -85,7 +85,7 @@ export const Container = () => {
         <MyMap
           areaPois={poisHm}
           aeraUsers={activityHm}
-          cloakedArea={clusters}
+          clusteredUsers={clusters}
         />
       </div>
     </div>
