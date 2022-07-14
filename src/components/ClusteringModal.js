@@ -5,7 +5,7 @@ import "./Modal.css";
 import Switch from "react-switch";
 
 export const ClusteringModal = ({ isOpen, onRequestClose, onSubmit }) => {
-  Modal.setAppElement("#main");
+  // Modal.setAppElement("#main");
 
   // set default start time to the start of the day
   const [startTime, setStartTime] = useState(
