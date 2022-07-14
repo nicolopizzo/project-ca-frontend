@@ -36,7 +36,6 @@ export const MyMap = ({ areaPois, aeraUsers, clusteredUsers }) => {
   const [openModal, setOpenModal] = useState(false);
   const [marker, setMarker] = useState(null);
   const [users, setUsers] = useState([]);
-  // const mapRef = useRef(null);
 
   const setUserInterval = useRef(null);
 
@@ -97,9 +96,7 @@ export const MyMap = ({ areaPois, aeraUsers, clusteredUsers }) => {
       scrollWheelZoom={true}
       bounds={bounds}
       maxBounds={bounds}
-      // children={}
     >
-      {/* TODO: Layers per POI e Utenti */}
       <LayersControl collapsed={false} position="topright">
         {/* BaseLayers */}
         <LayersControl.BaseLayer name="OpenStreetMap" checked={true}>

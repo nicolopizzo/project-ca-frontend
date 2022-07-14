@@ -25,8 +25,6 @@ export const Container = () => {
 
   const fetchCluster = async (startTime, endTime) => {
     const res = (await axios.get(`http://localhost:3001/activity/clustering?start=${startTime}&end=${endTime}`)).data;
-    // console.log(startTime, endTime);
-    // console.log(res);
     setClusters(res);
   };
 
@@ -55,7 +53,6 @@ export const Container = () => {
     setShowLegend(true);
     fetchPOI();
     poisInterval.current = invokeEveryTwoMinutes(fetchPOI);
-    // poisInterval();
   };
 
   const handleActivityHM = async () => {

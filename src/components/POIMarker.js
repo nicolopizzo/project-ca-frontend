@@ -7,7 +7,6 @@ import { UpdateModal } from "./UpdatePOIModal";
 export const POIMarker = ({ poi, changeActive }) => {
   const [name, setName] = useState(poi.name);
   const [rank, setRank] = useState(poi.rank);
-  // const [type, setType] = useState(poi.type);
   const [active, setActive] = useState(poi.active);
   const { id, position, type } = poi;
   const coordinates = [position.coordinates[1], position.coordinates[0]];
@@ -28,10 +27,8 @@ export const POIMarker = ({ poi, changeActive }) => {
     }
     setActive(poi.active);
 
-    // console.log();
     const postedPoi = { name: poi.name, rank: poi.rank, active: poi.active };
     await axios.post(`http://localhost:3001/poi/${id}`, postedPoi);
-    // setEditPOI(poi);
   };
   return (
     <Marker
@@ -43,7 +40,6 @@ export const POIMarker = ({ poi, changeActive }) => {
       <Popup>
         {name} <br /> Rank: {rank} <br />
         <button
-          // className="btn"
           style={{
             backgroundColor: "#30475e",
             border: "none",
